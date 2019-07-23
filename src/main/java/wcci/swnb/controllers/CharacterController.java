@@ -7,13 +7,13 @@ package wcci.swnb.controllers;
 //	private CharacterRepository characterRepo;
 //
 //	@GetMapping("/characters")
-//	public Iterable<Character> sendAuthors()
+//	public Iterable<PlayerCharacter> sendAuthors()
 //		{
 //		return characterRepo.findAll();
 //		}
 //
 //	@GetMapping("/characters/{id}")
-//	public Character sendAuthor(@PathVariable Long id)
+//	public PlayerCharacter sendAuthor(@PathVariable Long id)
 //		{
 //		return characterRepo.findById(id).get();
 //		}
