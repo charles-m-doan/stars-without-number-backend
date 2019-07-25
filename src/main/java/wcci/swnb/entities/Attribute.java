@@ -1,6 +1,23 @@
 package wcci.swnb.entities;
 
+import java.util.Collection;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+@Entity
 public class Attribute {
+	@Id
+	@GeneratedValue
+	private Long Id;
+	
+	@OneToOne
+	private PlayerCharacter playerCharacter;
+	
+	
 
 	public static final int STRENGTH = 0;
 	public static final int DEXTERITY = 1;
@@ -8,7 +25,8 @@ public class Attribute {
 	public static final int INTELLIGENCE = 3;
 	public static final int WISDOM = 4;
 	public static final int CHARISMA = 5;
-	public static final String[] TYPE_NAMES = { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" };
+	public static final String[] TYPE_NAMES = { "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom",
+			"Charisma" };
 	public static final String UNRECOGNIZED_TYPE_NAME = "Unknown";
 
 	public static final int MIN_VALUE = 3;
@@ -17,84 +35,62 @@ public class Attribute {
 	private final int type;
 	private int value = 0;
 
-	public Attribute(int type)
-		{
+	public Attribute(int type) {
 		this.type = type;
-		}
+	}
 
-	public int getValue()
-		{
+	public int getValue() {
 		return value;
-		}
+	}
 
-	public void setValue(int value)
-		{
+	public void setValue(int value) {
 		this.value = value;
-		}
+	}
 
-	public void increaseValue(int amountToIncrease)
-		{
+	public void increaseValue(int amountToIncrease) {
 		value += amountToIncrease;
-		if (value > MAX_VALUE)
-			{
+		if (value > MAX_VALUE) {
 			value = MAX_VALUE;
-			}
 		}
+	}
 
-	public void decreaseValue(int amountToDecrease)
-		{
+	public void decreaseValue(int amountToDecrease) {
 		value -= amountToDecrease;
-		if (value < MIN_VALUE)
-			{
+		if (value < MIN_VALUE) {
 			value = MIN_VALUE;
-			}
 		}
+	}
 
-	public int getModifier()
-		{
-		if (value <= MIN_VALUE)
-			{
+	public int getModifier() {
+		if (value <= MIN_VALUE) {
 			return -2;
-			}
-		else if (value >= 4 && value <= 7)
-			{
+		} else if (value >= 4 && value <= 7) {
 			return -1;
-			}
-		else if (value >= 8 && value <= 13)
-			{
+		} else if (value >= 8 && value <= 13) {
 			return 0;
-			}
-		else if (value >= 14 && value < MAX_VALUE)
-			{
+		} else if (value >= 14 && value < MAX_VALUE) {
 			return 1;
-			}
-		else
-			{
+		} else {
 			// Greater than or equal to MAX_VALUE (18 following standard rules)
 			return 2;
-			}
 		}
+	}
 
-	public int getType()
-		{
+	public int getType() {
 		return type;
-		}
+	}
 
-	public String getTypeName()
-		{
-		if (typeIsValid(type))
-			{
+	public String getTypeName() {
+		if (typeIsValid(type)) {
 			return UNRECOGNIZED_TYPE_NAME;
-			}
+		}
 		return TYPE_NAMES[type];
-		}
+	}
 
-	private static boolean typeIsValid(int type)
-		{
-		if (type < 0 || type > TYPE_NAMES.length)
-			{
+	private static boolean typeIsValid(int type) {
+		if (type < 0 || type > TYPE_NAMES.length) {
 			return false;
-			}
-		return true;
 		}
+		return true;
+	}
 }

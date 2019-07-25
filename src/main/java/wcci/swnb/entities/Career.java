@@ -1,11 +1,32 @@
 package wcci.swnb.entities;
 
-public abstract class Career {
+import java.util.Collection;
 
-	protected String description;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-	public Career() {
-		super();
+@Entity
+public class Career {
+	@Id
+	@GeneratedValue
+	private Long Id;
+	@OneToOne
+	private PlayerCharacter playerCharacter;
+	String description;
+
+	private Career() {
+	}
+
+	public Career(String description) {
+		this.description = description;
+		this.playerCharacter = playerCharacter;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 }
