@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import wcci.swnb.entities.factories.CareerFactory;
 
 @Entity
@@ -14,20 +16,25 @@ public class Career {
 	@GeneratedValue
 	private Long Id;
 
+	@JsonIgnore
 	@OneToOne
 	private PlayerCharacter playerCharacter;
 
-	String careerName;
+	String typeName;
+
+	protected Career()
+		{
+		}
 
 	public Career(PlayerCharacter playerCharacter)
 		{
-		this.careerName = CareerFactory.UNSPECIFIED;
+		this.typeName = CareerFactory.UNSPECIFIED;
 		}
 
-	public Career(PlayerCharacter playerCharacter, String careerName)
+	public Career(PlayerCharacter playerCharacter, String typeName)
 		{
 		this.playerCharacter = playerCharacter;
-		this.careerName = careerName;
+		this.typeName = typeName;
 		}
 
 	public Long getId()
@@ -40,14 +47,14 @@ public class Career {
 		return playerCharacter;
 		}
 
-	public String getCareerName()
+	public String getTypeName()
 		{
-		return careerName;
+		return typeName;
 		}
 
-	public void setCareerName(String careerName)
+	public void setTypeName(String typeName)
 		{
-		this.careerName = careerName;
+		this.typeName = typeName;
 		}
 
 	@Override
@@ -56,7 +63,7 @@ public class Career {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
-		result = prime * result + ((careerName == null) ? 0 : careerName.hashCode());
+		result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
 		return result;
 		}
 
@@ -77,12 +84,12 @@ public class Career {
 			}
 		else if (!Id.equals(other.Id))
 			return false;
-		if (careerName == null)
+		if (typeName == null)
 			{
-			if (other.careerName != null)
+			if (other.typeName != null)
 				return false;
 			}
-		else if (!careerName.equals(other.careerName))
+		else if (!typeName.equals(other.typeName))
 			return false;
 		return true;
 		}

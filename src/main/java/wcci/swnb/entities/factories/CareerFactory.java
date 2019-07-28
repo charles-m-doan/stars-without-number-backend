@@ -23,7 +23,7 @@ public class CareerFactory {
 		{
 		}
 
-	public static Career generateCareer(PlayerCharacter playerCharacter)
+	public static Career generateRandomCareer(PlayerCharacter playerCharacter)
 		{
 		int careerType = Dice.rollXDiceWithYSides(1, CAREER_NAMES.length) - 1;
 		Career career = new Career(playerCharacter, getCareerName(careerType));

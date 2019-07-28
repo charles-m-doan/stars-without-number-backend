@@ -3,7 +3,9 @@ package wcci.swnb.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Attribute {
@@ -11,18 +13,23 @@ public class Attribute {
 	@GeneratedValue
 	private Long Id;
 
-	@OneToOne
+	@JsonIgnore
+	@ManyToOne
 	private PlayerCharacter playerCharacter;
 
-	private String type;
+	private String typeName;
 	private int value;
 	private int modifier;
+
+	protected Attribute()
+		{
+		}
 
 	public Attribute(PlayerCharacter playerCharacter, String type, int value, int modifier)
 		{
 		super();
 		this.playerCharacter = playerCharacter;
-		this.type = type;
+		this.typeName = type;
 		this.value = value;
 		this.modifier = modifier;
 		}
@@ -37,9 +44,9 @@ public class Attribute {
 		return playerCharacter;
 		}
 
-	public String getType()
+	public String getTypeName()
 		{
-		return type;
+		return typeName;
 		}
 
 	public int getValue()

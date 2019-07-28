@@ -8,6 +8,7 @@ import wcci.swnb.entities.PlayerCharacter;
 import wcci.swnb.repos.AttributeRepository;
 import wcci.swnb.repos.CareerRepository;
 import wcci.swnb.repos.PlayerCharacterRepository;
+import wcci.swnb.utility.RandomEntityGenerator;
 
 @Component
 public class Initializer implements CommandLineRunner {
@@ -23,7 +24,12 @@ public class Initializer implements CommandLineRunner {
 		{
 		System.out.println("Running Initializer...");
 
-		PlayerCharacter playerCharacter01 = new PlayerCharacter("Poopman the Great");
-		pcRepo.save(playerCharacter01);
+		for (int i = 0; i < 8; i++)
+			{
+			PlayerCharacter playerCharacter = RandomEntityGenerator.generateRandomCharacter(pcRepo);
+			RandomEntityGenerator.assignRandomAttributesToPC(attributeRepo, playerCharacter);
+			RandomEntityGenerator.assignRandomCareerToPC(careerRepo, playerCharacter);
+			}
+
 		}
 }

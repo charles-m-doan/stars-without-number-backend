@@ -2,6 +2,8 @@ package wcci.swnb.entities.factories;
 
 import java.util.ArrayList;
 
+import wcci.swnb.entities.PlayerCharacter;
+
 public class PlayerCharacterFactory {
 
 	public static final int[] XP_TO_ADVANCE_LEVEL = { 3, 6, 12, 18, 27, 39, 54, 72, 93 };
@@ -10,6 +12,24 @@ public class PlayerCharacterFactory {
 
 	private PlayerCharacterFactory()
 		{
+		}
+
+	/* Returns an integer equal to the number of levels gained. */
+	public static int addExperienceToPlayerCharacter(PlayerCharacter pc, int experienceToAdd)
+		{
+		if (experienceToAdd < 0)
+			{
+			return 0;
+			}
+		int experienceAfterAdding = pc.getExperience() + experienceToAdd;
+		pc.setExperience(experienceAfterAdding);
+		int expectedLevelAfterAddingXP = getLevelForGivenXP(experienceAfterAdding);
+		pc.setLevel(expectedLevelAfterAddingXP);
+
+		int currentLevel = pc.getLevel();
+		int numberOfLevelsGained = expectedLevelAfterAddingXP - currentLevel;
+
+		return numberOfLevelsGained;
 		}
 
 	public static int getXPForGivenLevel(int level)

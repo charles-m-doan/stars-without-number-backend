@@ -1,11 +1,17 @@
 package wcci.swnb.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import wcci.swnb.entities.factories.PlayerCharacterFactory;
 
 @Entity
 public class PlayerCharacter {
@@ -13,25 +19,17 @@ public class PlayerCharacter {
 	@GeneratedValue
 	private Long Id;
 
-	@OneToOne(mappedBy = "playerCharacter")
-	private Attribute strength;
-	@OneToOne(mappedBy = "playerCharacter")
-	private Attribute dexterity;
-	@OneToOne(mappedBy = "playerCharacter")
-	private Attribute constitution;
-	@OneToOne(mappedBy = "playerCharacter")
-	private Attribute intelligence;
-	@OneToOne(mappedBy = "playerCharacter")
-	private Attribute wisdom;
-	@OneToOne(mappedBy = "playerCharacter")
-	private Attribute charisma;
-
-	@OneToOne(mappedBy = "playerCharacter")
-	private Career career;
-
 	private String name;
 	private int level = 1;
 	private int experience = 0;
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "playerCharacter")
+	private Set<Attribute> attributes = new HashSet<Attribute>();
+
+	@JsonManagedReference
+	@OneToOne(mappedBy = "playerCharacter")
+	private Career career;
 
 	protected PlayerCharacter()
 		{
@@ -49,34 +47,9 @@ public class PlayerCharacter {
 		return Id;
 		}
 
-	public Attribute getStrength()
+	public Set<Attribute> getAttributes()
 		{
-		return strength;
-		}
-
-	public Attribute getDexterity()
-		{
-		return dexterity;
-		}
-
-	public Attribute getConstitution()
-		{
-		return constitution;
-		}
-
-	public Attribute getIntelligence()
-		{
-		return intelligence;
-		}
-
-	public Attribute getWisdom()
-		{
-		return wisdom;
-		}
-
-	public Attribute getCharisma()
-		{
-		return charisma;
+		return attributes;
 		}
 
 	public Career getCareer()
@@ -112,6 +85,11 @@ public class PlayerCharacter {
 	public void setExperience(int experience)
 		{
 		this.experience = experience;
+		}
+
+	public void addExperience(int xpToAdd)
+		{
+		PlayerCharacterFactory.addExperienceToPlayerCharacter(this, xpToAdd);
 		}
 
 	@Override
