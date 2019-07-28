@@ -27,6 +27,10 @@ public class RandomEntityGenerator {
 	public static PlayerCharacter generateRandomCharacter(PlayerCharacterRepository pcRepo)
 		{
 		String name = LOREM.getFirstName();
+		if (RANDOM.nextInt(10) < 4)
+			{
+			name = LOREM.getName();
+			}
 		int experience = RANDOM.nextInt(MAX_XP_FOR_RANDOM_CHARS);
 
 		PlayerCharacter playerCharacter = new PlayerCharacter(name);
