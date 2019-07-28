@@ -12,6 +12,16 @@ public class Dice {
 		{
 		}
 
+	public static int roll(String diceToRoll, int modifier)
+		{
+		return roll(diceToRoll) + modifier;
+		}
+
+	public static int rollXDiceWithYSidesAndZModifier(int diceCount, int sidesPerDie, int modifier)
+		{
+		return rollXDiceWithYSides(diceCount, sidesPerDie) + modifier;
+		}
+
 	public static int roll(String diceToRoll)
 		{
 		String[] tokens = diceToRoll.split(DICE_TOKENIZER);
