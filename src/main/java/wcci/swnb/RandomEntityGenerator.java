@@ -4,13 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import wcci.swnb.entities.PlayerCharacter;
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
+
 import wcci.swnb.repos.AttributeRepository;
 import wcci.swnb.repos.CareerRepository;
 import wcci.swnb.repos.PlayerCharacterRepository;
 
 @Component
-public class Initializer implements CommandLineRunner {
+public class RandomEntityGenerator implements CommandLineRunner {
+
+	private static final Lorem LOREM = LoremIpsum.getInstance();
 
 	@Autowired
 	private PlayerCharacterRepository pcRepo;
@@ -21,9 +25,11 @@ public class Initializer implements CommandLineRunner {
 
 	public void run(String... args) throws Exception
 		{
-		System.out.println("Running Initializer...");
+		System.out.println("Loading Random Entity Generator");
+		}
 
-		PlayerCharacter playerCharacter01 = new PlayerCharacter("Poopman the Great");
-		pcRepo.save(playerCharacter01);
+	public void generateRandomCharacter()
+		{
+		
 		}
 }
